@@ -226,7 +226,8 @@ public struct ScalingHeaderScrollView<Header: View, Content: View>: View {
                 .offset(y: -(contentFrame.startingRect?.maxY ?? UIScreen.main.bounds.height))
             }
             .animation(headerAnimation, value: shouldSnapTo)
-            .introspect(.scrollView, on: .iOS(.v15, .v16, .v17, .v18, .v26)) { scrollView in
+            // Open-ended range: an explicit version list silently stops matching on every new iOS major
+            .introspect(.scrollView, on: .iOS(.v15...)) { scrollView in
                 configure(scrollView: scrollView)
             }
             .onAppear {
